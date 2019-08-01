@@ -1,0 +1,83 @@
+package test;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class CreateDepartment {
+	
+	@Test	
+	public void walsh() throws InterruptedException{
+		
+	System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+	WebDriver driver = new ChromeDriver();
+		 
+		 // launch the Chrome browser and open the application url
+	driver.get("https://junodev.azurewebsites.net");
+	             
+	     // maximize the browser window
+    driver.manage().window().maximize();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		 	                
+		 // declare and initialize the variable to store the expected title of the webpage.
+	String expectedTitle = " Sign in - Walsh Integrated";
+		             		 
+		 // fetch the title of the web page and save it into a string variable
+		 
+	String actualTitle = driver.getTitle();
+		 
+	Assert.assertEquals(expectedTitle,actualTitle);
+		              
+		 // enter a valid username in the email textbox
+		 
+	WebElement username = driver.findElement(By.xpath("//*[@id='extr-page']/app-login/section[1]/div/div/div/form/fieldset/section[1]/label[2]/input"));
+		 
+    username.clear();
+		 
+	username.sendKeys("sdet1@walshmobile.com");
+	
+		 // enter a valid password in the password textbox
+		 
+	WebElement password = driver.findElement(By.xpath("//*[@id='extr-page']/app-login/section[1]/div/div/div/form/fieldset/section[2]/label[2]/input"));
+		 
+	password.clear();
+		 
+	password.sendKeys("Test@123");
+		               
+		  // click on the Sign in button
+	WebElement SignInButton = driver.findElement(By.xpath("//button[@id='button-signin']"));
+		 
+	SignInButton.click();
+		  //click on Account Administrator role
+	driver.findElement(By.className("walsh-primary-btn")).click();
+		  //click on setup link
+	driver.findElement(By.xpath("//*[@id='left-panel']/nav/app-menu/ul/li[5]/a")).click();
+		  
+	driver.findElement(By.xpath("//*[@id='83-item']/li[3]/a/span")).click();
+	
+    Thread.sleep(3000);
+          //click on Add button
+    driver.findElement(By.xpath("//button[@type='submit' and @class='btn btn-default btn-sm']")).click();
+          // Enter new department name
+    driver.findElement(By.xpath("//input[@class='completer-input form-control ng-valid ng-touched ng-dirty']")).sendKeys("Admin department");
+          // Enter department description
+    driver.findElement(By.xpath("//textarea[@data-bv-field='Description']")).sendKeys("Description");
+    
+	driver.findElement(By.xpath("//button[@class='walsh-primary-border-btn pull-right']")).click();
+	
+    if(driver.getPageSource().contains("Admin department"))
+    {
+    	System.out.println("New Department Created");
+    }
+    else{
+    	System.out.println("Department not created");
+    }
+    
+    driver.close();
+ }
+}
