@@ -1,0 +1,47 @@
+package apitesting;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.json.simple.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class TC001_Update {
+
+	@Test
+	public void Departmentupdated()
+	{ 
+	 
+	 RequestSpecification request = RestAssured.given();
+	 
+	 JSONObject requestParams = new JSONObject();
+	
+	 requestParams.put("AccountId","00");
+	 requestParams.put("Name","Data Department");
+	 requestParams.put("Description","Description of the department");
+	 requestParams.put("GlobalId","0");
+	 requestParams.put("GlobalName","Data Department");
+	 requestParams.put("Id","10457");
+	 requestParams.put("Status","Active");
+	 requestParams.put("CreatedBy","Pramod");
+	 requestParams.put("CreatedTimestamp","2019-07-31T02:37:18.769Z");
+	 requestParams.put("ModifiedBy","Pramod");
+	 requestParams.put("ModifiedTimestamp","2019-07-31T02:37:18.769Z");
+	 requestParams.put("DataStateFlag","string");
+	 
+	 request.body(requestParams.toJSONString());
+	 
+	 Response response = request.put("https://walshapix.azurewebsites.net/swagger/docs/v1/Data department");
+	 
+	 int statusCode = response.getStatusCode();
+	 
+	 System.out.println("code" +statusCode);
+	 
+	 Assert.assertEquals(statusCode, "200");
+	}
+}
