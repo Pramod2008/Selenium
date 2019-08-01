@@ -23,10 +23,10 @@ public class TC001_POST {
 	 JSONObject requestParams = new JSONObject();
 	
 	 requestParams.put("AccountId","00");
-	 requestParams.put("Name","IT Technical Support");
+	 requestParams.put("Name","Data Department");
 	 requestParams.put("Description","Description");
 	 requestParams.put("GlobalId","0");
-	 requestParams.put("GlobalName","IT Technical Support");
+	 requestParams.put("GlobalName","Data Department");
 	 requestParams.put("Id","10457");
 	 requestParams.put("Status","Active");
 	 requestParams.put("CreatedBy","Pramod");
