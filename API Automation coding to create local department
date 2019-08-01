@@ -1,0 +1,48 @@
+package apitesting;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.json.simple.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class TC001_POST {
+
+	@Test
+	public void Departmentcreated()
+	{ 
+	 RestAssured.baseURI ="https://walshapix.azurewebsites.net/swagger/docs/v1";
+	 
+	 RequestSpecification request = RestAssured.given();
+	 
+	 JSONObject requestParams = new JSONObject();
+	
+	 requestParams.put("AccountId","00");
+	 requestParams.put("Name","IT Technical Support");
+	 requestParams.put("Description","Description");
+	 requestParams.put("GlobalId","0");
+	 requestParams.put("GlobalName","IT Technical Support");
+	 requestParams.put("Id","10457");
+	 requestParams.put("Status","Active");
+	 requestParams.put("CreatedBy","Pramod");
+	 requestParams.put("CreatedTimestamp","2019-07-31T02:37:18.769Z");
+	 requestParams.put("ModifiedBy","Pramod");
+	 requestParams.put("ModifiedTimestamp","2019-07-31T02:37:18.769Z");
+	 requestParams.put("DataStateFlag","string");
+	 
+	 request.body(requestParams.toJSONString());
+	 
+	 Response response = request.post("/Data department");
+	 
+	 int statusCode = response.getStatusCode();
+	 
+	 Assert.assertEquals(statusCode, "200");
+	 String successCode = response.jsonPath().get("SuccessCode");
+	 Assert.assertEquals( "Correct Success code was returned", successCode, "OPERATION_SUCCESS");
+	}
+}
